@@ -1,0 +1,404 @@
+/**
+ * Estilos optimizados para el árbol de amor
+ * Versión corregida para móviles
+ */
+
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe4e1 50%, #fff0f5 100%);
+    min-height: 100vh;
+    font-size: 14px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #231F20;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+#text::-webkit-scrollbar {
+    display: none;
+}
+
+#text {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+a {
+    color: #d63447;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ff6b81;
+    text-decoration: underline;
+}
+
+/* Contenedor principal */
+#main {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+#wrap {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1100px;
+    height: auto;
+    aspect-ratio: 1100 / 680;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Área de texto - CORRECCIÓN AQUÍ */
+#text {
+    position: absolute;
+    width: 42%;
+    max-width: 480px;
+    height: auto;
+    max-height: 52%;
+    left: 5%;
+    top: 9%;
+    z-index: 10;
+    pointer-events: none; 
+    user-select: none;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+#code {
+    display: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: clamp(10px, 1.5vw, 18px);
+    line-height: 1.28;
+    color: #2c3e50;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+.say {
+    margin-left: 5px;
+    display: inline-block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Reloj y contador de tiempo - CORRECCIÓN AQUÍ */
+#clock-box {
+    position: absolute;
+    left: 5%;
+    bottom: 8%;
+    font-size: clamp(11px, 2.2vw, 26px);
+    display: none;
+    z-index: 10;
+    color: #2c3e50;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.9);
+    pointer-events: none;
+    max-width: 88%;
+    line-height: 1.3;
+}
+
+#clock-box a {
+    font-size: clamp(11px, 2.2vw, 26px);
+    pointer-events: auto;
+}
+
+#clock {
+    margin-left: clamp(8px, 2.5vw, 40px);
+    margin-top: clamp(4px, 0.8vw, 8px);
+}
+
+#clock .digit {
+    font-size: clamp(22px, 5vw, 60px);
+    font-weight: bold;
+    color: #d63447;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Canvas */
+#canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    border-radius: 20px;
+    background: transparent;
+    touch-action: none;
+    cursor: default;
+}
+
+/* Contenedor de fotos con marco */
+#photo-container {
+    position: absolute;
+    left: 61%;
+    top: 38%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    pointer-events: none;
+    display: none;
+}
+
+.photo-frame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #ffffff;
+    padding: 12px;
+    padding-bottom: 40px;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.3),
+        0 6px 12px rgba(0, 0, 0, 0.2),
+        0 3px 6px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.photo-frame.show {
+    opacity: 1;
+}
+
+.photo-frame.hide {
+    opacity: 0;
+}
+
+.photo-frame img {
+    display: block;
+    width: clamp(160px, 20vw, 250px);
+    height: clamp(160px, 20vw, 250px);
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Mensaje de error */
+#error {
+    display: none;
+    margin: 60px auto 0;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
+    border: 2px solid #ffc107;
+    border-radius: 12px;
+    color: #856404;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#error a {
+    color: #0056b3;
+    font-weight: bold;
+}
+
+/* Utilidades */
+.hand {
+    cursor: pointer !important;
+}
+
+.say {
+    margin-left: 5px;
+    display: inline-block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media screen and (max-width: 1200px) {
+    #main {
+        padding: 5px;
+    }
+    
+    #clock-box-inside-text {
+        font-size: clamp(10px, 2vw, 28px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 12px;
+    }
+    
+    #main {
+        padding: 3px;
+    }
+    
+    #wrap {
+        border-radius: 15px;
+    }
+    
+    #text {
+        width: 45%;
+        max-height: 50%;
+        top: 7%;
+    }
+    
+    #code {
+        font-size: clamp(8px, 2vw, 13px);
+        line-height: 1.25;
+    }
+    
+    .say {
+        margin-left: 3px;
+    }
+    
+    #clock-box {
+        bottom: 6%;
+        font-size: clamp(9px, 2vw, 18px);
+    }
+    
+    #clock .digit {
+        font-size: clamp(18px, 4.2vw, 40px);
+    }
+    
+    .photo-frame img {
+        width: clamp(130px, 22vw, 200px);
+        height: clamp(130px, 22vw, 200px);
+    }
+    
+    .photo-frame {
+        padding: 10px;
+        padding-bottom: 35px;
+    }
+    
+    #photo-container {
+        left: 62%;
+        top: 37%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #wrap {
+        border-radius: 10px;
+    }
+    
+    #text {
+        width: 48%;
+        max-height: 48%;
+        top: 5%;
+    }
+    
+    #code {
+        font-size: clamp(6.5px, 1.85vw, 10px);
+        line-height: 1.22;
+    }
+    
+    .say {
+        margin-left: 2px;
+    }
+    
+    #main {
+        padding: 2px;
+    }
+    
+    #clock-box {
+        bottom: 5%;
+        font-size: clamp(7px, 1.8vw, 13px);
+    }
+    
+    #clock {
+        margin-left: clamp(4px, 1.8vw, 15px);
+        margin-top: 2px;
+    }
+    
+    #clock .digit {
+        font-size: clamp(14px, 3.8vw, 26px);
+    }
+    
+    .photo-frame img {
+        width: clamp(100px, 24vw, 150px);
+        height: clamp(100px, 24vw, 150px);
+    }
+    
+    .photo-frame {
+        padding: 8px;
+        padding-bottom: 28px;
+    }
+    
+    #photo-container {
+        left: 63%;
+        top: 36%;
+    }
+}
+
+/* Pantallas extra pequeñas */
+@media screen and (max-width: 380px) {
+    #text {
+        width: 50%;
+        max-height: 46%;
+        top: 4%;
+    }
+    
+    #code {
+        font-size: clamp(5.5px, 1.7vw, 8.5px);
+        line-height: 1.18;
+    }
+    
+    .say {
+        margin-left: 1px;
+    }
+    
+    #clock-box {
+        bottom: 4%;
+        font-size: clamp(6px, 1.6vw, 11px);
+    }
+    
+    #clock .digit {
+        font-size: clamp(12px, 3.2vw, 22px);
+    }
+    
+    #clock {
+        margin-left: clamp(3px, 1.5vw, 12px);
+    }
+}
+
+/* Orientación horizontal en móviles */
+@media screen and (max-width: 900px) and (max-height: 500px) {
+    #main {
+        padding: 5px;
+        align-items: flex-start;
+        padding-top: 10px;
+    }
+    
+    #wrap {
+        max-height: calc(100vh - 20px);
+    }
+    
+    #text {
+        max-height: 35%;
+        top: 5%;
+    }
+    
+    #code {
+        font-size: clamp(8px, 1.8vw, 12px);
+        line-height: 1.2;
+    }
+    
+    #clock-box {
+        bottom: 5%;
+    }
+}

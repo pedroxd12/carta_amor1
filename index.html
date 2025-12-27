@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Nuestra Historia de Amor">
+    <meta name="theme-color" content="#fff5f5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Nuestra Historia</title>
+
+    <link rel="stylesheet" href="./index_files/default.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <audio class="song-audio-autoplay" loop preload="auto">
+        <source src="./index_files/music.mp3" type="audio/mpeg">
+        Tu navegador no soporta el audio.
+    </audio>
+
+    <div id="main">
+        <div id="error">
+            Tu navegador no soporta las características necesarias. Por favor usa Chrome o Edge actualizado.
+        </div>
+        
+        <div id="wrap">
+            <div id="text">
+                <div id="code"></div>
+            </div>
+            
+            <div id="clock-box">
+                <span id="clock-box-inside-text"></span>
+                <div id="clock"></div>
+            </div>
+            
+            <div id="photo-container"></div>
+            
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+
+    <script src="./config.js"></script>
+    
+    <script src="./index_files/love.js"></script>
+    <script src="./index_files/functions.js"></script>
+    <script src="./index_files/main.js"></script>
+
+    <script>
+        // Inicialización de textos al cargar
+        (function() {
+            const codeElement = document.getElementById('code');
+            if (window.config && window.config.lines) {
+                // Reducir espaciado entre líneas para que todo quepa
+                codeElement.innerHTML = window.config.lines
+                    .map(line => `<span class="say">${line}</span><br>`)
+                    .join('');
+            }
+            
+            const clockBoxText = document.getElementById('clock-box-inside-text');
+            if (window.config && window.config.names) {
+                // Texto adaptable según el tamaño de pantalla
+                const width = window.innerWidth;
+                if (width <= 480) {
+                    // Muy compacto para móviles pequeños
+                    clockBoxText.innerHTML = `${window.config.names[0]} <span class="STYLE1">y</span> ${window.config.names[1]}`;
+                } else {
+                    // Formato completo
+                    clockBoxText.innerHTML = `${window.config.names[0]} <span class="STYLE1">y</span> ${window.config.names[1]} <span class="STYLE1">llevan juntos</span>`;
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
