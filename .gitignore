@@ -1,9 +1,2 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
-
-# Carpeta de fotos personales
-fotos/
-fotos/*
-
-# Mantener la estructura de carpetas (opcional)
-!fotos/.gitkeep
