@@ -10,10 +10,8 @@ window.config = {
         "Las flores florecen en su temporada, dejando pétalos como recuerdo",
         "Los años que pasan, ¿cómo pueden desvanecerse en el polvo?",
         "Tu sonrisa es mi eterno anhelo y lo que ilumina mis días",
-        "Este sentimiento que crece en mi corazón es tan profundo como el océano",
         "Cariño mío, eres mi única razón de ser y mi inspiración constante",
         "Te amaré por siempre, más allá del tiempo y el espacio",
-        "A pesar de las dificultades, nuestro amor prevalecerá",
         "Contigo, cada momento es un tesoro que guardo en mi alma",
         "Eres mi todo, mi amor eterno, mi vida entera.",
         "Con todo mi amor, Pedro."
